@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
 
 namespace EventOrganizer
 {
@@ -33,25 +28,17 @@ namespace EventOrganizer
         {
             return startTime;
         }
-        public void SetVariables()
+        public void SetEventName(string e)
         {
-
+            eventName = e;            
         }
-        public void ReadingFile(string path)
+        public void SetEventStart(DateTime start)
         {
-            if (string.IsNullOrEmpty(path))
-                throw new ArgumentException("The path cant be null or empty");
-
-            using (StreamReader sr = new StreamReader(path))
-            {
-                string line;
-
-
-                while ((line = sr.ReadLine()) != null)
-                {
-                    events.Add(line);
-                }
-            }
+            startTime = start;
+        }
+        public void SetEventFinish (DateTime finish)
+        {
+            finishTime = finish;
         }
     }
 }

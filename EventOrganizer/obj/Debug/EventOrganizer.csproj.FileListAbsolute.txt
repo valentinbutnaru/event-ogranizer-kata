@@ -5,3 +5,10 @@ C:\Users\vbutnaru\Desktop\EventOrganizer\EventOrganizer\EventOrganizer\obj\Debug
 C:\Users\vbutnaru\Desktop\EventOrganizer\EventOrganizer\EventOrganizer\obj\Debug\EventOrganizer.csproj.CoreCompileInputs.cache
 C:\Users\vbutnaru\Desktop\EventOrganizer\EventOrganizer\EventOrganizer\obj\Debug\EventOrganizer.exe
 C:\Users\vbutnaru\Desktop\EventOrganizer\EventOrganizer\EventOrganizer\obj\Debug\EventOrganizer.pdb
+C:\Users\alaha\Desktop\event\event-ogranizer-kata\EventOrganizer\obj\Debug\EventOrganizer.csprojAssemblyReference.cache
+C:\Users\alaha\Desktop\event\event-ogranizer-kata\EventOrganizer\obj\Debug\EventOrganizer.csproj.CoreCompileInputs.cache
+C:\Users\alaha\Desktop\event\event-ogranizer-kata\EventOrganizer\obj\Debug\EventOrganizer.exe
+C:\Users\alaha\Desktop\event\event-ogranizer-kata\EventOrganizer\obj\Debug\EventOrganizer.pdb
+C:\Users\alaha\Desktop\event\event-ogranizer-kata\EventOrganizer\bin\Debug\EventOrganizer.exe.config
+C:\Users\alaha\Desktop\event\event-ogranizer-kata\EventOrganizer\bin\Debug\EventOrganizer.exe
+C:\Users\alaha\Desktop\event\event-ogranizer-kata\EventOrganizer\bin\Debug\EventOrganizer.pdb

@@ -9,40 +9,20 @@ namespace EventOrganizer
 {
     public class EventControl
     {
-        private List<IEvent> events = new List<IEvent>();
-        public void ReadingFileEvents(string path)
+        private List<Event> events = new List<Event>();
+        public string Path { get; set; }
+
+        private Reader reader;
+        public EventControl (string path)
         {
-
-            if (string.IsNullOrEmpty(path))
-                throw new ArgumentException("The path cant be null or empty");
-                
-            using (StreamReader sr = new StreamReader(path))
-            {
-                string line;
-
-                while ((line = sr.ReadLine()) != null)
-                {
-                    string[]  array = line.Split(',');
-
-                    DateTime first = DateTime.ParseExact(array[1], "yyyy-MM-dd HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
-                    DateTime second = DateTime.Parse(array[2]);
-                    SetEvents(array);
-                }
-            
-            }
-
+            this.Path = path;
         }
-        public void SetEvents(string[] array)
+ 
+        public void SetList ()
         {
-            //DateTime first = DateTime.Parse(array[1]);
-            //DateTime second = DateTime.Parse(array[2]);
-           // events.Add(new Event(array[0],dt,dt2));
+            reader = new Reader(Path);
+            events = reader.ReadingFile();
+        }
 
-        }
-        public void Display()
-        {
-            foreach (var e in events)
-                Console.WriteLine(e.GetEventName(), e.GetStartTime(), e.GetFinishTime());
-        }
     }
 }

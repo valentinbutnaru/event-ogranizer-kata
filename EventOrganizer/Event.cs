@@ -2,43 +2,21 @@
 
 namespace EventOrganizer
 {
-    public class Event: IEvent 
+    public class Event
     {
-        private string eventName;
-        private DateTime startTime;
-        private DateTime finishTime;
-        public Event (string eventName,DateTime startTime,DateTime finishTime)
+
+        public string EventName { get; }
+
+        public DateTime StartTime { get; set; }
+
+        public DateTime FinishTime { get; set; }
+
+        public Event(string EventName, DateTime StartTime, DateTime FinishTime)
         {
-            this.eventName = eventName;
-            this.startTime = startTime;
-            this.finishTime = finishTime;
+            this.EventName = EventName;
+            this.StartTime = StartTime;
+            this.FinishTime = FinishTime;
         }
 
-        public DateTime GetFinishTime()
-        {
-            return finishTime;
-        }
-
-        public string GetEventName()
-        {
-            return eventName;
-        }
-
-        public DateTime GetStartTime()
-        {
-            return startTime;
-        }
-        public void SetEventName(string e)
-        {
-            eventName = e;            
-        }
-        public void SetEventStart(DateTime start)
-        {
-            startTime = start;
-        }
-        public void SetEventFinish (DateTime finish)
-        {
-            finishTime = finish;
-        }
     }
 }

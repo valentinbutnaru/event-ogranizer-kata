@@ -11,7 +11,7 @@ namespace EventOrganizer
     {
         static void Main(string[] args)
         {
-            string path = @"C:\Users\alaha\Desktop\event\event-ogranizer-kata\Eveniments.txt";
+            string path = @"C:\Users\vbutnaru\Desktop\EventOrganizer\event-ogranizer-kata\Eveniments.txt";
 
             EventControl e = new EventControl();
             e.ReadingFileEvents(path);

@@ -11,11 +11,11 @@ namespace EventOrganizer
 
         public DateTime FinishTime { get; set; }
 
-        public Event(string EventName, DateTime StartTime, DateTime FinishTime)
+        public Event(string eventName, DateTime startTime, DateTime finishTime)
         {
-            this.EventName = EventName;
-            this.StartTime = StartTime;
-            this.FinishTime = FinishTime;
+            this.EventName = eventName;
+            this.StartTime = startTime;
+            this.FinishTime = finishTime;
         }
 
     }

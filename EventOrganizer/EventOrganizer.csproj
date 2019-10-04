@@ -43,9 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Conflict.cs" />
     <Compile Include="Event.cs" />
     <Compile Include="EventControl.cs" />
     <Compile Include="Organizer.cs" />
+    <Compile Include="Period.cs" />
+    <Compile Include="PeriodConflict.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reader.cs" />

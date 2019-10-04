@@ -6,14 +6,13 @@ namespace EventOrganizer
 {
     public class Reader
     {
-        public List<Event> Events = new List<Event>();
         public string Path { get; set; }
 
         public Reader(string Path)
         {
             this.Path = Path;
         }
-        public List<Event> ReadingFile()
+        public List<Event> ReadingFile(List<Event> events)
         {
 
             if (string.IsNullOrEmpty(Path))
@@ -27,16 +26,16 @@ namespace EventOrganizer
                 {
                     string[] array = line.Split(',');
 
-                    Events=SetEvents(array);
+                    events=SetEvents(array,events);
                 }
 
             }
-            return Events;
+            return events;
         }
-        public List<Event> SetEvents (string [] array)
+        public List<Event> SetEvents (string [] array,List<Event> events)
         {
-            Events.Add(new Event(array[0], Convert.ToDateTime(array[1]), Convert.ToDateTime(array[2])));
-            return Events;
+            events.Add(new Event(array[0], Convert.ToDateTime(array[1]), Convert.ToDateTime(array[2])));
+            return events;
         }
     }
 }

@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
+
 
 namespace EventOrganizer
 {
@@ -12,10 +8,9 @@ namespace EventOrganizer
         static void Main(string[] args)
         {
             string path = @"C:\Users\vbutnaru\Desktop\EventOrganizer\event-ogranizer-kata\Eveniments.txt";
-
-            EventControl e = new EventControl();
-            e.ReadingFileEvents(path);
-            e.Display();
+            EventControl e = new EventControl(path);
+            e.SetCalendar();
+            e.DisplayEvent();
             Console.Read();
         }
     }

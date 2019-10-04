@@ -8,41 +8,27 @@ namespace EventOrganizer
 {
     public class Organizer
     {
-        private List<Event> events = new List<Event>();
         private List<Conflict> conflicts = new List<Conflict>();
-        public Organizer(List<Event> events)
+        public Organizer() { }
+        public string Arrange(List<Event> events)
         {
-            this.events = events;
-        }
-        public string Arrange()
-        {
-            if (ConflictExisting(events) ==true)
-            {
+            if (events == null)
+                throw new ArgumentNullException("Theres cant be null lists");
+
+            if (events.Count() == 0)
+                throw new ArgumentException("Lists cant be empty");
+
                 PeriodConflict p = new PeriodConflict();
                 conflicts = p.ConflictDetermination(events);
-                return SettingResult();
-            }
-            else return "All ok no conflicts found";
-        }
+                return SettingResult();          
+        }       
 
-        public bool ConflictExisting(List<Event> events)
-        {
-            
-            for (int i = 0;i<events.Count;i++)
-            {
-                for (int k =0; k <events.Count;k++)
-                {
-                    if (events[i].FinishTime<=events[k].StartTime && events[k].FinishTime<=events[i].StartTime)
-                        return false;
-
-                }
-            }
-            return true;
-        }
         public string SettingResult()
         {
             string result;
             StringBuilder sb = new StringBuilder();
+            if (conflicts.Count()==0)
+                sb.Append("All ok no conflicts founded");
             foreach (var s in conflicts)
             {
                 sb.Append(s.ConflictName+" "+s.StartingTimeOfConflict+" "+s.FinishingTimeOfConflict);

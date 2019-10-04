@@ -11,10 +11,7 @@ namespace EventOrganizer
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
 
-        public Period()
-        {
-                
-        }
+        public Period() { }
         public Period(DateTime start, DateTime end)
         {
             StartTime = start;

@@ -8,12 +8,15 @@ namespace EventOrganizer
     {
         public string Path { get; set; }
 
+
         public Reader(string Path)
         {
             this.Path = Path;
         }
         public List<Event> ReadingFile(List<Event> events)
         {
+            if (events == null)
+                throw new ArgumentNullException("The list cant be null");
 
             if (string.IsNullOrEmpty(Path))
                 throw new ArgumentException("The path cant be null or empty");

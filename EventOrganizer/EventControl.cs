@@ -21,8 +21,8 @@ namespace EventOrganizer
         {
             reader = new Reader(Path);
             events=reader.ReadingFile(events);
-            organizer = new Organizer(events);
-            Result = organizer.Arrange();         
+            organizer = new Organizer();
+            Result = organizer.Arrange(events);         
         }
         public void DisplayEvent()
         {

@@ -7,7 +7,9 @@ namespace EventOrganizer
     {
         static void Main(string[] args)
         {
-            string path = @"C:\Users\vbutnaru\Desktop\EventOrganizer\event-ogranizer-kata\Eveniments.txt";
+            string path;
+            Console.WriteLine("Introduce the path to txt directory");
+            path = Console.ReadLine();
             EventControl e = new EventControl(path);
             e.SetCalendar();
             e.DisplayEvent();

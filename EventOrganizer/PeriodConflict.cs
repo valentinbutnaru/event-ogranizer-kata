@@ -21,6 +21,7 @@ namespace EventOrganizer
                 throw new ArgumentException("The list cant be empty");
 
             List<Conflict> conflicts = new List<Conflict>();
+
             for (int i = 0; i < events.Count(); i++)
             {
                 for(int k = i + 1; k < events.Count(); k++)

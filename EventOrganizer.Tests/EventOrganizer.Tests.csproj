@@ -59,7 +59,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EventControlTests.cs" />
     <Compile Include="OrganizerTests.cs" />
+    <Compile Include="PeriodConflictTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReaderTests.cs" />
   </ItemGroup>

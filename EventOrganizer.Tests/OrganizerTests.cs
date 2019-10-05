@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
-using EventOrganizer;
+
 namespace EventOrganizer.Tests
 {
     public class OrganizerTests
@@ -18,7 +15,7 @@ namespace EventOrganizer.Tests
 
             events.Add(new Event("Gala", Convert.ToDateTime("2009-06-15 16:32:00"), Convert.ToDateTime("2009-06-15 19:32:00")));
 
-            events.Add(new Event("Sala", Convert.ToDateTime("2001-06-15 12:32:00"), Convert.ToDateTime("2001-06-15 17:32:00")));
+            events.Add(new Event("Lunch", Convert.ToDateTime("2001-06-15 12:32:00"), Convert.ToDateTime("2001-06-15 17:32:00")));
 
             Organizer o = new Organizer();
 
@@ -36,7 +33,7 @@ namespace EventOrganizer.Tests
 
             events.Add(new Event("Gala", Convert.ToDateTime("2009-06-15 16:32:00"), Convert.ToDateTime("2009-06-15 19:32:00")));
 
-            events.Add(new Event("Sala", Convert.ToDateTime("2009-06-15 16:32:00"), Convert.ToDateTime("2009-06-15 19:32:00")));
+            events.Add(new Event("Lunch", Convert.ToDateTime("2009-06-15 16:32:00"), Convert.ToDateTime("2009-06-15 19:32:00")));
 
             Organizer o = new Organizer();
 
@@ -61,12 +58,11 @@ namespace EventOrganizer.Tests
         {
             List<Event> events = new List<Event>();
 
-
             Organizer o = new Organizer();
 
             Action act = () => o.Arrange(events);
 
-            Assert.Throws<ArgumentException>("List cant be empty", act);
+            Assert.Throws<ArgumentException>("Lists cant be empty", act);
         }
     }
 }

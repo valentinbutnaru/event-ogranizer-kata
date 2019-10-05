@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace EventOrganizer
 {
     public class Organizer
     {
         private List<Conflict> conflicts = new List<Conflict>();
+
         public Organizer() { }
+
         public string Arrange(List<Event> events)
         {
             if (events == null)
@@ -20,6 +21,7 @@ namespace EventOrganizer
 
                 PeriodConflict p = new PeriodConflict();
                 conflicts = p.ConflictDetermination(events);
+
                 return SettingResult();          
         }       
 
@@ -29,6 +31,7 @@ namespace EventOrganizer
             StringBuilder sb = new StringBuilder();
             if (conflicts.Count()==0)
                 sb.Append("All ok no conflicts founded");
+
             foreach (var s in conflicts)
             {
                 sb.Append(s.ConflictName+" "+s.StartingTimeOfConflict+" "+s.FinishingTimeOfConflict);

@@ -12,21 +12,28 @@ namespace EventOrganizer
         private Organizer organizer;
 
         private Reader reader;
-        public EventControl (string path)
+
+        public EventControl(string path)
         {
             this.Path = path;
         }
- 
-        public void SetCalendar ()
+
+        public void SetCalendar()
         {
+            if (Path == null)
+                throw new ArgumentNullException("The path cant be null");
+
+            if (Path == string.Empty)
+                throw new ArgumentException("The path cant be empty");
+
             reader = new Reader(Path);
-            events=reader.ReadingFile(events);
+            events = reader.ReadingFile(events);
             organizer = new Organizer();
-            Result = organizer.Arrange(events);         
+            Result = organizer.Arrange(events);
         }
         public void DisplayEvent()
         {
-            Console.WriteLine("The conflicts are \n" +Result);
+            Console.WriteLine("The conflicts are \n" + Result);
         }
     }
 }

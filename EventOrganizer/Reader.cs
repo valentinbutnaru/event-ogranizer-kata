@@ -18,8 +18,11 @@ namespace EventOrganizer
             if (events == null)
                 throw new ArgumentNullException("The list cant be null");
 
-            if (string.IsNullOrEmpty(Path))
-                throw new ArgumentException("The path cant be null or empty");
+            if (Path == null)
+                throw new ArgumentNullException("The path cant be null");
+
+            if (Path == string.Empty)
+                throw new ArgumentException("The path cant be empty");
 
             using (StreamReader sr = new StreamReader(Path))
             {
@@ -37,6 +40,9 @@ namespace EventOrganizer
         }
         public List<Event> SetEvents (string [] array,List<Event> events)
         {
+            if (array == null)
+                throw new ArgumentNullException("The array cant be null");
+
             events.Add(new Event(array[0], Convert.ToDateTime(array[1]), Convert.ToDateTime(array[2])));
             return events;
         }

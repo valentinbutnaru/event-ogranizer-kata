@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace EventOrganizer
 {
@@ -15,6 +14,12 @@ namespace EventOrganizer
 
         public List<Conflict> ConflictDetermination (List<Event> events)
         {
+            if (events == null)
+                throw new ArgumentNullException("The list cant be null");
+
+            if (events.Count == 0)
+                throw new ArgumentException("The list cant be empty");
+
             List<Conflict> conflicts = new List<Conflict>();
             for (int i = 0; i < events.Count(); i++)
             {

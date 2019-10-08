@@ -94,7 +94,7 @@ namespace EventOrganizer.Tests
 
             actual = reader.SetEvents(array, actual);
 
-            Assert.Equal(expected, actual);
+            Assert.Equal(expected.ToString(), actual.ToString());
         }
     }
 }

@@ -27,7 +27,8 @@ namespace EventOrganizer.Tests
 
             List<Conflict> act = p.ConflictDetermination(events);
 
-            Assert.Equal(expected, act);
+
+            Assert.Equal(expected.ToString(), act.ToString());
         }
 
         [Fact]

@@ -33,7 +33,7 @@ namespace EventOrganizer.Tests
 
             events.Add(new Event("Gala", Convert.ToDateTime("2009-06-15 16:32:00"), Convert.ToDateTime("2009-06-15 19:32:00")));
 
-            events.Add(new Event("Lunch", Convert.ToDateTime("2009-06-15 16:32:00"), Convert.ToDateTime("2009-06-15 19:32:00")));
+            events.Add(new Event("Sala", Convert.ToDateTime("2009-06-15 16:32:00"), Convert.ToDateTime("2009-06-15 19:32:00")));
 
             Organizer o = new Organizer();
 

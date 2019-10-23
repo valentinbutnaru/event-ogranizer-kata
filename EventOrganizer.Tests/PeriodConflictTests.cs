@@ -4,55 +4,45 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
-using EventOrganizer;
+using Moq;
+
 namespace EventOrganizer.Tests
 {
     public class PeriodConflictTests
     {
         [Fact]
-        public void ConflictDetermination_ShouldReturnCorrectlist()
-        {
-            List<Event> events = new List<Event>
-            {
-                new Event("Gala", Convert.ToDateTime("2009-06-15 16:32:00"), Convert.ToDateTime("2009-06-15 19:32:00")),
-                new Event("Lunch",Convert.ToDateTime("2009-06-15 16:32:00"), Convert.ToDateTime("2009-06-15 19:32:00"))
-            };
-
-            PeriodConflict p = new PeriodConflict();
-
-            List<Conflict> expected = new List<Conflict>
-            {
-                new Conflict("\nTime conflict between " + "Gala" + " and " + "Lunch", Convert.ToDateTime("2009-06-15 16:32:00"), Convert.ToDateTime("2009-06-15 19:32:00"))
-            };
-
-            List<Conflict> act = p.ConflictDetermination(events);
-
-
-            Assert.Equal(expected.ToString(), act.ToString());
-        }
-
-        [Fact]
         public void ConflictDetermination_NullListException()
         {
-            List<Event> e = null;
-
+            List<EventModel> e = null;
+            List<ConflictModel> conflicts = new List<ConflictModel>();
             PeriodConflict p = new PeriodConflict();
 
-            Action act = () => p.ConflictDetermination(e);
+            Action act = () => p.ConflictDetermination(e, conflicts);
 
             Assert.Throws<ArgumentNullException>("The list cant be null", act);
         }
 
         [Fact]
-        public void ConflictDetermination_EmptyListException()
+        public void ConflictDetermination_WithEvent_ReturnCorrectConflicts()
         {
-            List<Event> e = new List<Event>();
+            List<EventModel> e = new List<EventModel>
+            {
+                new EventModel("sala", Convert.ToDateTime("2009-06-15 16:32:00"), Convert.ToDateTime("2009-06-15 18:32:00")),
+                new EventModel("lunch", Convert.ToDateTime("2009-06-15 17:32:00"), Convert.ToDateTime("2009-06-15 20:32:00"))
+            };
+            List<ConflictModel> conflicts = new List<ConflictModel>();
+
+            List<ConflictModel> conflictsRes = new List<ConflictModel>()
+            {
+                new ConflictModel("\nTime conflict between sala and lunch", Convert.ToDateTime("2009-06-15 16:32:00"), Convert.ToDateTime("2009-06-15 20:32:00"))
+            };
+
 
             PeriodConflict p = new PeriodConflict();
 
-            Action act = () => p.ConflictDetermination(e);
+            var act = p.ConflictDetermination(e, conflicts);
 
-            Assert.Throws<ArgumentException>("The lsit cant be empty", act);
+            Assert.Equal(conflictsRes.ToString(), act.ToString());
         }
     }
 }

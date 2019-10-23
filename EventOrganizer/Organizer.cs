@@ -5,36 +5,38 @@ using System.Text;
 
 namespace EventOrganizer
 {
-    public class Organizer
+    public class Organizer : IOrganizer
     {
-        private List<Conflict> conflicts = new List<Conflict>();
+        private  List<ConflictModel> _conflicts ;
 
-        public Organizer() { }
+        private readonly IPeriodConflict _periodConflict;
 
-        public string Arrange(List<Event> events)
+        public Organizer(IPeriodConflict periodConflict, List<ConflictModel> conflicts)
+        {
+            this._conflicts = conflicts;
+            this._periodConflict = periodConflict;
+        }
+
+        public string Arrange(List<EventModel> events)
         {
             if (events == null)
                 throw new ArgumentNullException("Theres cant be null lists");
 
-            if (events.Count() == 0)
-                throw new ArgumentException("Lists cant be empty");
+            _conflicts = _periodConflict.ConflictDetermination(events, _conflicts);
 
-                PeriodConflict p = new PeriodConflict();
-                conflicts = p.ConflictDetermination(events);
+            return SettingResult();
+        }
 
-                return SettingResult();          
-        }       
-
-        public string SettingResult()
+        private string SettingResult()
         {
             string result;
             StringBuilder sb = new StringBuilder();
-            if (conflicts.Count()==0)
+            if (_conflicts.Count() == 0)
                 sb.Append("All ok no conflicts founded");
 
-            foreach (var s in conflicts)
+            foreach (var s in _conflicts)
             {
-                sb.Append(s.ConflictName+" "+s.StartingTimeOfConflict+" "+s.FinishingTimeOfConflict);
+                sb.Append(s.ConflictName + " " + s.StartingTimeOfConflict + " " + s.FinishingTimeOfConflict);
             }
             result = sb.ToString();
             return result;

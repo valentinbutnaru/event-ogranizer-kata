@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Autofac;
+using System;
 
 
 namespace EventOrganizer
@@ -8,11 +9,17 @@ namespace EventOrganizer
         static void Main(string[] args)
         {
             string path;
-            Console.WriteLine("Introduce the path to txt directory");
+            Console.WriteLine("Introduce the path to the file : ");
             path = Console.ReadLine();
-            EventControl e = new EventControl(path);
-            e.SetCalendar();
-            e.DisplayEvent();
+
+            var container = ContainerConfig.Config();
+
+            using (var scope = container.BeginLifetimeScope())
+            {
+                var app = scope.Resolve<IEventControl>();
+                app.SetCalendar(path);
+            }
+
             Console.Read();
         }
     }

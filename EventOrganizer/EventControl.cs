@@ -3,35 +3,33 @@ using System.Collections.Generic;
 
 namespace EventOrganizer
 {
-    public class EventControl
+    public class EventControl : IEventControl
     {
-        private List<Event> events = new List<Event>();
-        public string Path { get; set; }
+        private List<EventModel> _events;
         public string Result { get; set; }
 
-        private Organizer organizer;
+        private readonly IOrganizer _organizer;
 
-        private Reader reader;
+        private readonly IReader _reader;
 
-        public EventControl(string path)
+        public EventControl(IOrganizer organizer, IReader reader,List<EventModel> events)
         {
-            this.Path = path;
+            this._events = events;
+            this._organizer = organizer;
+            this._reader = reader;
         }
 
-        public void SetCalendar()
+        public void SetCalendar(string path)
         {
-            if (Path == null)
+            if (path == null)
                 throw new ArgumentNullException("The path cant be null");
 
-            if (Path == string.Empty)
-                throw new ArgumentException("The path cant be empty");
+            _events = _reader.ReadingFile(path, _events);
+            Result = _organizer.Arrange(_events);
 
-            reader = new Reader(Path);
-            events = reader.ReadingFile(events);
-            organizer = new Organizer();
-            Result = organizer.Arrange(events);
+            DisplayEvent();
         }
-        public void DisplayEvent()
+        private void DisplayEvent()
         {
             Console.WriteLine("The conflicts are \n" + Result);
         }

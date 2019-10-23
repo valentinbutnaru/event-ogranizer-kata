@@ -1,68 +1,70 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Xunit;
+using Moq;
 
 namespace EventOrganizer.Tests
 {
     public class OrganizerTests
     {
         [Fact]
-        public void Arrange_NoConflictResult ()
+        public void Arrange_NullListExeption()
         {
-            string expected = "All ok no conflicts founded";
+            List<ConflictModel> conflicts = new List<ConflictModel>();
+            List<EventModel> events = null;
+            var periodConflict = new Mock<IPeriodConflict>();
+            Organizer org = new Organizer(periodConflict.Object, conflicts);
 
-            List<Event> events = new List<Event>();
+            Action act = () => org.Arrange(events);
 
-            events.Add(new Event("Gala", Convert.ToDateTime("2009-06-15 16:32:00"), Convert.ToDateTime("2009-06-15 19:32:00")));
+            Assert.Throws<ArgumentNullException>("Theres cant be null lists", act);
+        }
 
-            events.Add(new Event("Lunch", Convert.ToDateTime("2001-06-15 12:32:00"), Convert.ToDateTime("2001-06-15 17:32:00")));
+        [Fact]
+        public void Arrange_CallingOnceConflictDetermination()
+        {
+            var periodConflict = new Mock<IPeriodConflict>();
+            List<ConflictModel> conflicts = new List<ConflictModel>();
+            List<EventModel> events = new List<EventModel>
+            {
+                new EventModel("sala", Convert.ToDateTime("2009-06-15 16:32:00"), Convert.ToDateTime("2009-06-15 16:32:00"))
+            };
+            periodConflict.Setup(p => p.ConflictDetermination(It.IsAny<List<EventModel>>(), conflicts)).Returns(conflicts);
+            Organizer org = new Organizer(periodConflict.Object, conflicts);
 
-            Organizer o = new Organizer();
+            org.Arrange(events);
 
-            string act = o.Arrange(events);
+            periodConflict.Verify(p => p.ConflictDetermination(events, conflicts), Times.Once());
+        }
+
+        [Fact]
+        public void Arrange_WithConflicts_ShouldReturnCorrectString()
+        {
+            List<ConflictModel> conflicts = new List<ConflictModel>
+            {
+                new ConflictModel("sala", Convert.ToDateTime("2009-06-15 16:32:00"), Convert.ToDateTime("2009-06-15 16:32:00"))
+            };
+
+            string expected = "sala 6/15/2009 4:32:00 PM 6/15/2009 4:32:00 PM";
+
+            List<EventModel> eventModels = new List<EventModel>
+            {
+                new EventModel("sala", Convert.ToDateTime("2009-06-15 16:32:00"), Convert.ToDateTime("2009-06-15 16:32:00"))
+            };
+
+            var periodConflict = new Mock<IPeriodConflict>();
+
+            periodConflict.Setup(p => p.ConflictDetermination(It.IsAny<List<EventModel>>(), conflicts)).Returns(conflicts);
+
+            Organizer org = new Organizer(periodConflict.Object, conflicts);
+
+            var act = org.Arrange(eventModels);
 
             Assert.Equal(expected, act);
-        }
-
-        [Fact]
-        public void Arrange_FoundConflictResult()
-        {
-            string expected = "\nTime conflict between Gala and Sala 6/15/2009 4:32:00 PM 6/15/2009 7:32:00 PM";
-
-            List<Event> events = new List<Event>();
-
-            events.Add(new Event("Gala", Convert.ToDateTime("2009-06-15 16:32:00"), Convert.ToDateTime("2009-06-15 19:32:00")));
-
-            events.Add(new Event("Sala", Convert.ToDateTime("2009-06-15 16:32:00"), Convert.ToDateTime("2009-06-15 19:32:00")));
-
-            Organizer o = new Organizer();
-
-            string act = o.Arrange(events);
-
-            Assert.Equal(expected, act);
-        }
-        [Fact]
-        public void Arrange_NullListException()
-        {
-            List<Event> events = null;
-
-            Organizer o = new Organizer();
-
-            Action act = () => o.Arrange(events);
-
-            Assert.Throws<ArgumentNullException>("Theres cant be null lists",act);
-        }
-        
-        [Fact]
-        public void Arrange_EmptyListException()
-        {
-            List<Event> events = new List<Event>();
-
-            Organizer o = new Organizer();
-
-            Action act = () => o.Arrange(events);
-
-            Assert.Throws<ArgumentException>("Lists cant be empty", act);
         }
     }
 }
+
